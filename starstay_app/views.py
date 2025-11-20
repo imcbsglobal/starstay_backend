@@ -46,7 +46,7 @@ def visitor_list(request):
 
             # Send WhatsApp to Admin
             admin_number = "919072791379" 
-            
+             
             message = (
                 f"🔔 New Visitor Registered - Starstay 🩷!\n\n"
                 f"👤 Name: {visitor.name}\n"
