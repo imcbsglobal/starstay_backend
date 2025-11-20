@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-kbm_kqpca58@fm-f&vi!a0=ryg$wok3dmr7t%8je=rnlh^u58e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','starstay.imcbs.com','www.starstay.imcbs.com']
 
 
 # Application definition
@@ -82,13 +82,6 @@ WSGI_APPLICATION = 'starstay_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # starstay_db
 
 DATABASES = {
@@ -96,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'starstay_db',
         'USER': 'postgres',
-        'PASSWORD': '12345',
+        'PASSWORD': 'info@imc',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -208,6 +201,7 @@ CSRF_TRUSTED_ORIGINS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:3000",
+    "https://starstay.imcbs.com/"
 ]
 
 # ==========================================
