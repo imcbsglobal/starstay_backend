@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -201,7 +202,7 @@ CSRF_TRUSTED_ORIGINS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:3000",
-    "https://starstay.imcbs.com/"
+    "https://starstay.imcbs.com"
 ]
 
 # ==========================================
@@ -214,5 +215,21 @@ SESSION_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
 
 # Media Files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+
+# Enable R2 storage
+CLOUDFLARE_R2_ENABLED = os.getenv("CLOUDFLARE_R2_ENABLED", "false") == "true"
+
+if CLOUDFLARE_R2_ENABLED:
+    
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    AWS_ACCESS_KEY_ID = os.getenv("CLOUDFLARE_R2_ACCESS_KEY")
+    AWS_SECRET_ACCESS_KEY = os.getenv("CLOUDFLARE_R2_SECRET_KEY")
+    AWS_STORAGE_BUCKET_NAME = os.getenv("CLOUDFLARE_R2_BUCKET")
+    AWS_S3_ENDPOINT_URL = os.getenv("CLOUDFLARE_R2_BUCKET_ENDPOINT")
+    AWS_S3_REGION_NAME = "auto"  
+    AWS_QUERYSTRING_AUTH = False 
+    MEDIA_URL = os.getenv("CLOUDFLARE_R2_PUBLIC_URL") + "/"
+else:
+    # Local development fallback
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
