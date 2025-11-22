@@ -12,9 +12,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production
@@ -91,7 +95,7 @@ DATABASES = {
         'NAME': 'starstay_db',
         'USER': 'postgres',
         'PASSWORD': 'info@imc',
-        'HOST': 'localhost',
+        'HOST': '88.222.212.14',
         'PORT': '5432',
     }
 }
@@ -217,8 +221,8 @@ SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
 # Media Files
 
 # Enable R2 storage
-CLOUDFLARE_R2_ENABLED = os.getenv("CLOUDFLARE_R2_ENABLED", "false") == "true"
-
+CLOUDFLARE_R2_ENABLED = os.getenv("CLOUDFLARE_R2_ENABLED", "false")
+print(CLOUDFLARE_R2_ENABLED)
 if CLOUDFLARE_R2_ENABLED:
     
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
